@@ -1,6 +1,9 @@
 
 import win32com.client
+import openpyxl as xl
+from openpyxl.styles import Alignment, PatternFill, Side, Border
 import os
+import xlsxwriter
 
 def add_rows(work_book, sheet):
     # Add new rows and set correct values
@@ -47,13 +50,89 @@ def add_rows(work_book, sheet):
 
 
 def save_excel_to_pdf(file_name):
-    file_path = os.path.join(os.getcwd(), file_name)
+    # file_path = os.path.join(os.getcwd(), file_name)
+    # print(file_path) # D:\GitHub\Python\HellowExcel3\Book1Done.xlsx
+    # base_name = os.path.basename(file_path)
+    # print(base_name) # Book1Done.xlsx
 
     # Convert Excel file to PDF using win32com
     excel = win32com.client.Dispatch('Excel.Application')
-    workbook = excel.Workbooks.Open(r'D:\GitHub\Python\HellowExcel3\Book1Done.xlsx')
-    workbook.ExportAsFixedFormat(0, r'D:\GitHub\Python\HellowExcel3\Book1Done.pdf', 1, 0, 0)
+    workbook = excel.Workbooks.Open(r'D:\GitHub\Python\HellowExcel3\Book1Book1Done.xlsx')
+    workbook.ExportAsFixedFormat(0, r'D:\GitHub\Python\HellowExcel3\Book1Book1Done.pdf', 1, 0, 0)
 
     # Close the Excel file
     workbook.Close()
     excel.Quit()
+
+
+import openpyxl
+
+from openpyxl.styles import NamedStyle, PatternFill, Border, Side, Alignment
+from openpyxl.styles.colors import Color
+from openpyxl import load_workbook
+from openpyxl.utils import get_column_letter
+
+def format_excel_file(file_path):
+    # Wczytanie pliku Excel
+    workbook = load_workbook(file_path)
+
+    # Wybór odpowiedniego arkusza
+    worksheet = workbook.active
+
+    # Zapis nagłówków
+    header1 = worksheet.cell(row=2, column=18).value
+    header2 = worksheet.cell(row=2, column=21).value
+    header3 = worksheet.cell(row=2, column=22).value
+
+    worksheet.insert_rows(1)
+
+    # Usunięcie kolumn niepotrzebnych do formatowania
+    columns_to_delete = []
+    for column in range(1, worksheet.max_column + 1):
+        column_letter = get_column_letter(column)
+        if column_letter not in ['A', 'B', 'C', 'E', 'F', 'Q', 'X']:
+            columns_to_delete.append(column)
+
+    for column_index in sorted(columns_to_delete, reverse=True):
+        worksheet.delete_cols(column_index, 1)
+
+    # Ustawienie stylu dla pozostałych kolumn
+    table_style = openpyxl.worksheet.table.TableStyleInfo(name="TableStyleMedium2", showFirstColumn=False,
+                                                           showLastColumn=False, showRowStripes=True, showColumnStripes=True)
+    table = openpyxl.worksheet.table.Table(ref=f"A2:{get_column_letter(worksheet.max_column)}{worksheet.max_row}",
+                                            displayName="MyTable", tableStyleInfo=table_style)
+    worksheet.add_table(table)
+
+    # Utworzenie stylu dla nagłówków
+    header_style = NamedStyle(name="header_style")
+    header_style.alignment = Alignment(horizontal="center", vertical="center")
+
+    # Wstawienie nagłówków do pierwszego wiersza tabeli
+    worksheet.cell(row=1, column=1, value=header1)
+    worksheet.merge_cells(start_row=1, start_column=1, end_row=1, end_column=3)
+    worksheet.cell(row=1, column=4, value=header2)
+    worksheet.merge_cells(start_row=1, start_column=4, end_row=1, end_column=5)
+    worksheet.cell(row=1, column=6, value=header3)
+    worksheet.merge_cells(start_row=1, start_column=6, end_row=1, end_column=7)
+
+    # Szerokość kolumn
+
+    # Ustawienie stylu dla wierszy
+    row_style1 = NamedStyle(name="row_style1")
+    row_style1.fill = PatternFill(start_color=Color(rgb="EBF1DE"), end_color=Color(rgb="EBF1DE"), fill_type="solid")
+    row_style2 = NamedStyle(name="row_style2")
+    row_style2.fill = PatternFill(start_color=Color(rgb="FFFFFF"), end_color=Color(rgb="FFFFFF"), fill_type="solid")
+    for row in worksheet.iter_rows(min_row=2):
+        if row[0].row % 2 == 0:
+            for cell in row:
+                cell.style = row_style1
+        else:
+            for cell in row:
+                cell.style = row_style2
+
+    # Zapisanie zmian do pliku
+    workbook.save('Book1'+file_path)
+
+
+
+
