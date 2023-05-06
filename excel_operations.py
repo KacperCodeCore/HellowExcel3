@@ -16,16 +16,18 @@ def add_rows(work_book, sheet):
             sheet.insert_rows(rowIndex + 1)
             sheet.cell(rowIndex, 6).value = 10
             # Operations on operation text.1 for current row
-            operation_text = str(sheet.cell(rowIndex, 16).value)
+            operation_text = str(sheet.cell(rowIndex, 5).value)
             operation_text = operation_text[:3] + "10" + operation_text[5:]
+            sheet.cell(rowIndex, 5).value = operation_text
             sheet.cell(rowIndex, 16).value = operation_text
             # Copy values from row above
             for column in range(1, sheet.max_column + 1):
                 sheet.cell(row=rowIndex + 1, column=column).value = sheet.cell(row=rowIndex, column=column).value
             sheet.cell(rowIndex + 1, 6).value = 18
             # Operations on operation text.1 for new row
-            operation_text = str(sheet.cell(rowIndex + 1, 16).value)
+            operation_text = str(sheet.cell(rowIndex + 1, 5).value)
             operation_text = operation_text[:3] + "18" + operation_text[5:]
+            sheet.cell(rowIndex + 1, 5).value = operation_text
             sheet.cell(rowIndex + 1, 16).value = operation_text
             #
             rowIndex += 1
@@ -37,6 +39,7 @@ def add_rows(work_book, sheet):
             # Operations on operation text.1 for current row
             operation_text = str(sheet.cell(rowIndex, 16).value)
             operation_text = operation_text[:3] + "18" + operation_text[5:]
+            sheet.cell(rowIndex, 5).value = operation_text
             sheet.cell(rowIndex, 16).value = operation_text
             # Copy values from row above
             for column in range(1, sheet.max_column + 1):
