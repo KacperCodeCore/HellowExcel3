@@ -109,22 +109,44 @@ def format_excel_file(file_path):
     # Utworzenie stylu dla nagłówków
     header_style = NamedStyle(name="header_style")
     header_style.alignment = Alignment(horizontal="center", vertical="center")
+    header_style.fill = PatternFill(start_color=Color(rgb="EBF1DE"), end_color=Color(rgb="EBF1DE"), fill_type="solid")
+    header_style.border = Border(left=Side(style="thin", color=Color(rgb="9BBB59")),
+                                 right=Side(style="thin", color=Color(rgb="9BBB59")),
+                                 top=Side(style="thin", color=Color(rgb="9BBB59")),
+                                 bottom=Side(style="thin", color=Color(rgb="9BBB59")))
 
     # Wstawienie nagłówków do pierwszego wiersza tabeli
-    worksheet.cell(row=1, column=1, value=header1)
+    worksheet.cell(row=1, column=1, value=header1).style = header_style
     worksheet.merge_cells(start_row=1, start_column=1, end_row=1, end_column=3)
-    worksheet.cell(row=1, column=4, value=header2)
+    worksheet.cell(row=1, column=4, value=header2).style = header_style
     worksheet.merge_cells(start_row=1, start_column=4, end_row=1, end_column=5)
-    worksheet.cell(row=1, column=6, value=header3)
+    worksheet.cell(row=1, column=6, value=header3).style = header_style
     worksheet.merge_cells(start_row=1, start_column=6, end_row=1, end_column=7)
 
     # Szerokość kolumn
+    worksheet.column_dimensions['A'].width = 8
+    worksheet.column_dimensions['B'].width = 10
+    worksheet.column_dimensions['C'].width = 10
+    worksheet.column_dimensions['D'].width = 16.5
+    worksheet.column_dimensions['E'].width = 12
+    worksheet.column_dimensions['F'].width = 15.5
+    worksheet.column_dimensions['G'].width = 15
 
     # Ustawienie stylu dla wierszy
     row_style1 = NamedStyle(name="row_style1")
     row_style1.fill = PatternFill(start_color=Color(rgb="EBF1DE"), end_color=Color(rgb="EBF1DE"), fill_type="solid")
+    row_style1.border = Border(left=Side(style="thin", color=Color(rgb="9BBB59")),
+                               right=Side(style="thin", color=Color(rgb="9BBB59")),
+                               top=Side(style="thin", color=Color(rgb="9BBB59")),
+                               bottom=Side(style="thin", color=Color(rgb="9BBB59")))
+
     row_style2 = NamedStyle(name="row_style2")
     row_style2.fill = PatternFill(start_color=Color(rgb="FFFFFF"), end_color=Color(rgb="FFFFFF"), fill_type="solid")
+    row_style2.border = Border(left=Side(style="thin", color=Color(rgb="9BBB59")),
+                               right=Side(style="thin", color=Color(rgb="9BBB59")),
+                               top=Side(style="thin", color=Color(rgb="9BBB59")),
+                               bottom=Side(style="thin", color=Color(rgb="9BBB59")))
+
     for row in worksheet.iter_rows(min_row=2):
         if row[0].row % 2 == 0:
             for cell in row:
