@@ -35,7 +35,7 @@ sheet["V3"].copy(sheet["Q1"])
 # Delete unnecessary columns
 sheet.delete_cols(4, 1)  # Delete column D
 sheet.delete_cols(6, 8)  # Delete columns F to O
-sheet.delete_cols(7, 5)  # Delete columns G to L
+sheet.delete_cols(8, 5)  # Delete columns G to L
 
 # Merge cells and format headers
 sheet.merge_cells("A1:C1")
@@ -45,4 +45,5 @@ sheet["A1"].font = xl.styles.Font(bold=True)
 sheet["D1"].font = xl.styles.Font(bold=True)
 
 # Save the Excel file
+
 wb.save('Book1Done2Done.xlsx')

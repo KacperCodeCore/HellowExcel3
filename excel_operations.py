@@ -18,6 +18,8 @@ def add_rows(work_book, sheet):
             # Operations on operation text.1 for current row
             operation_text = str(sheet.cell(rowIndex, 5).value)
             operation_text = operation_text[:3] + "10" + operation_text[5:]
+            sheet.cell(rowIndex, 2).value = sheet.cell(rowIndex, 2).value + 30
+            sheet.cell(rowIndex, 3).value = sheet.cell(rowIndex, 3).value + 30
             sheet.cell(rowIndex, 5).value = operation_text
             sheet.cell(rowIndex, 16).value = operation_text
             # Copy values from row above
@@ -39,6 +41,8 @@ def add_rows(work_book, sheet):
             # Operations on operation text.1 for current row
             operation_text = str(sheet.cell(rowIndex, 16).value)
             operation_text = operation_text[:3] + "18" + operation_text[5:]
+            sheet.cell(rowIndex, 2).value = sheet.cell(rowIndex, 2).value + 30
+            sheet.cell(rowIndex, 3).value = sheet.cell(rowIndex, 3).value + 30
             sheet.cell(rowIndex, 5).value = operation_text
             sheet.cell(rowIndex, 16).value = operation_text
             # Copy values from row above
@@ -93,7 +97,7 @@ def format_excel_file(file_path):
     columns_to_delete = []
     for column in range(1, worksheet.max_column + 1):
         column_letter = get_column_letter(column)
-        if column_letter not in ['A', 'B', 'C', 'E', 'F', 'Q', 'X']:
+        if column_letter not in ['A', 'B', 'C', 'E', 'F', 'Q', 'X', "Y"]:
             columns_to_delete.append(column)
 
     for column_index in sorted(columns_to_delete, reverse=True):
@@ -121,16 +125,17 @@ def format_excel_file(file_path):
     worksheet.cell(row=1, column=4, value=header2).style = header_style
     worksheet.merge_cells(start_row=1, start_column=4, end_row=1, end_column=5)
     worksheet.cell(row=1, column=6, value=header3).style = header_style
-    worksheet.merge_cells(start_row=1, start_column=6, end_row=1, end_column=7)
+    worksheet.merge_cells(start_row=1, start_column=6, end_row=1, end_column=8)
 
     # Szerokość kolumn
     worksheet.column_dimensions['A'].width = 8
-    worksheet.column_dimensions['B'].width = 10
-    worksheet.column_dimensions['C'].width = 10
+    worksheet.column_dimensions['B'].width = 8
+    worksheet.column_dimensions['C'].width = 8
     worksheet.column_dimensions['D'].width = 16.5
-    worksheet.column_dimensions['E'].width = 12
+    worksheet.column_dimensions['E'].width = 8
     worksheet.column_dimensions['F'].width = 15.5
-    worksheet.column_dimensions['G'].width = 15
+    worksheet.column_dimensions['G'].width = 13
+    worksheet.column_dimensions['H'].width = 13
 
     # Ustawienie stylu dla wierszy
     row_style1 = NamedStyle(name="row_style1")
