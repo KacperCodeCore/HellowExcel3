@@ -50,6 +50,7 @@ def add_rows(work_book, sheet):
             sheet.cell(rowIndex, 16).value = operation_text
             # create Tekst oper.10
             operation_text = f'po sklejeniu na 36mm sciąć na {sheet.cell(rowIndex, 2).value} x {sheet.cell(rowIndex, 3).value}'
+            sheet.cell(rowIndex, 25).value = operation_text
             # Copy values from row above
             for column in range(1, sheet.max_column + 1):
                 sheet.cell(row=rowIndex + 1, column=column).value = sheet.cell(row=rowIndex, column=column).value
@@ -146,14 +147,14 @@ def format_excel_file(file_path):
     worksheet.merge_cells(start_row=1, start_column=6, end_row=1, end_column=8)
 
     # Szerokość kolumn
-    worksheet.column_dimensions['A'].width = 8
+    worksheet.column_dimensions['A'].width = 6
     worksheet.column_dimensions['B'].width = 8
     worksheet.column_dimensions['C'].width = 8
     worksheet.column_dimensions['D'].width = 16.5
-    worksheet.column_dimensions['E'].width = 8
-    worksheet.column_dimensions['F'].width = 15.5
-    worksheet.column_dimensions['G'].width = 5
-    worksheet.column_dimensions['H'].width = 27
+    worksheet.column_dimensions['E'].width = 7
+    worksheet.column_dimensions['F'].width = 13
+    worksheet.column_dimensions['G'].width = 11
+    worksheet.column_dimensions['H'].width = 35
 
     # Ustawienie stylu dla wierszy
     row_style1 = NamedStyle(name="row_style1")
