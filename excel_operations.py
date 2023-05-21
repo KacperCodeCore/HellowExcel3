@@ -22,6 +22,9 @@ def add_rows(work_book, sheet):
             sheet.cell(rowIndex, 3).value = sheet.cell(rowIndex, 3).value + 30
             sheet.cell(rowIndex, 5).value = operation_text
             sheet.cell(rowIndex, 16).value = operation_text
+            # create Tekst oper.10
+            operation_text = f'po sklejeniu na 28mm sciac na {sheet.cell(rowIndex, 2).value} x {sheet.cell(rowIndex, 2).value}'
+            sheet.cell(rowIndex, 25).value = operation_text
             # Copy values from row above
             for column in range(1, sheet.max_column + 1):
                 sheet.cell(row=rowIndex + 1, column=column).value = sheet.cell(row=rowIndex, column=column).value
@@ -65,7 +68,19 @@ def save_excel_to_pdf(file_name):
     # Convert Excel file to PDF using win32com
     excel = win32com.client.Dispatch('Excel.Application')
     workbook = excel.Workbooks.Open(r'D:\GitHub\Python\HellowExcel3\Book1Book1Done.xlsx')
-    workbook.ExportAsFixedFormat(0, r'D:\GitHub\Python\HellowExcel3\Book1Book1Done.pdf', 1, 0, 0)
+
+    # Set properties for printing without margins
+    # active_sheet = workbook.ActiveSheet
+    # active_sheet.PageSetup.FitToPagesWide = 1
+    # active_sheet.PageSetup.FitToPagesTall = False
+    # active_sheet.PageSetup.LeftMargin = 20
+    # active_sheet.PageSetup.RightMargin = 20
+    # active_sheet.PageSetup.TopMargin = 20
+    # active_sheet.PageSetup.BottomMargin = 20
+
+    # Save to pdf
+    pdf_file_path = r'D:\GitHub\Python\HellowExcel3\Book1Book1Done' + '.pdf'
+    workbook.ExportAsFixedFormat(0, pdf_file_path, 1, 0, 0)
 
     # Close the Excel file
     workbook.Close()
