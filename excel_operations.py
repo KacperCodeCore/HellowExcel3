@@ -66,15 +66,15 @@ def add_rows(work_book):
 
 def save_excel_to_pdf(file_name):
 
-    # file_path = os.path.join(os.getcwd(), file_name)
-    # print(file_path) # D:\GitHub\Python\HellowExcel3\Book1Done.xlsx
-    # base_name = os.path.basename(file_path)
-    # print(base_name) # Book1Done.xlsx
+    # get file_path
+    file_path = os.path.join(os.getcwd(), file_name)
+    print(file_path)
 
     # Convert Excel file to PDF using win32com
     excel = win32com.client.Dispatch('Excel.Application')
-    excel.DisplayAlerts = False  # Wyłączenie monitu o zapisywanie zmian
-    workbook = excel.Workbooks.Open(r'D:\GitHub\Python\HellowExcel3\Book1.xlsx')
+    excel.DisplayAlerts = False  # Disable the prompt to save changes
+
+    workbook = excel.Workbooks.Open(file_path)
 
     # Set properties for printing without margins
     active_sheet = workbook.ActiveSheet
@@ -86,7 +86,8 @@ def save_excel_to_pdf(file_name):
     active_sheet.PageSetup.BottomMargin = 0
 
     # Save to pdf
-    pdf_file_path = r'D:\GitHub\Python\HellowExcel3\Book1' + '.pdf'
+    directory_path = os.path.dirname(file_path)
+    pdf_file_path = directory_path + '\Book1' + '.pdf'
     workbook.ExportAsFixedFormat(0, pdf_file_path, 1, 0, 0)
 
     # Close the Excel file
