@@ -98,7 +98,7 @@ from openpyxl.styles.colors import Color
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 
-def format_excel_file(file_path):
+def sub_collumns(file_path):
     # Wczytanie pliku Excel
     workbook = load_workbook(file_path)
 
@@ -147,14 +147,25 @@ def format_excel_file(file_path):
     worksheet.merge_cells(start_row=1, start_column=6, end_row=1, end_column=8)
 
     # Szerokość kolumn
-    worksheet.column_dimensions['A'].width = 6
+    worksheet.column_dimensions['A'].width = 5
     worksheet.column_dimensions['B'].width = 8
     worksheet.column_dimensions['C'].width = 8
-    worksheet.column_dimensions['D'].width = 16.5
+    worksheet.column_dimensions['D'].width = 17.1
     worksheet.column_dimensions['E'].width = 7
     worksheet.column_dimensions['F'].width = 13
-    worksheet.column_dimensions['G'].width = 11
-    worksheet.column_dimensions['H'].width = 35
+    worksheet.column_dimensions['G'].width = 13
+    worksheet.column_dimensions['H'].width = 37
+
+    # row_width = worksheet.column_dimensions['A'].width
+    # row_width += worksheet.column_dimensions['B'].width
+    # row_width += worksheet.column_dimensions['C'].width
+    # row_width += worksheet.column_dimensions['D'].width
+    # row_width += worksheet.column_dimensions['E'].width
+    # row_width += worksheet.column_dimensions['F'].width
+    # row_width += worksheet.column_dimensions['G'].width
+    # row_width += worksheet.column_dimensions['H'].width
+    # print(row_width)
+
 
     # Ustawienie stylu dla wierszy
     row_style1 = NamedStyle(name="row_style1")
