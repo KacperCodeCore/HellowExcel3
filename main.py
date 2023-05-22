@@ -14,6 +14,7 @@ sheet = work_book.active
 excel.add_rows(work_book)
 excel.sub_collumns(work_book)
 excel.save_excel_to_pdf('Book1.xlsx')
+excel.delete_file('Book1.xlsx')
 
 
 

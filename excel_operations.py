@@ -68,7 +68,6 @@ def save_excel_to_pdf(file_name):
 
     # get file_path
     file_path = os.path.join(os.getcwd(), file_name)
-    print(file_path)
 
     # Convert Excel file to PDF using win32com
     excel = win32com.client.Dispatch('Excel.Application')
@@ -199,5 +198,7 @@ def sub_collumns(file_path):
     workbook.save('Book1.xlsx')
 
 
+def delete_file(file_name):
+    os.remove(file_name)
 
 
