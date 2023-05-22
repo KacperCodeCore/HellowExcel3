@@ -5,7 +5,9 @@ from openpyxl.styles import Alignment, PatternFill, Side, Border
 import os
 import xlsxwriter
 
-def add_rows(work_book, sheet):
+def add_rows(work_book):
+
+    sheet = work_book.active
     # Add new rows and set correct values
     rowIndex = 2
     rowMax = sheet.max_row + 1
@@ -63,6 +65,7 @@ def add_rows(work_book, sheet):
 
 
 def save_excel_to_pdf(file_name):
+
     # file_path = os.path.join(os.getcwd(), file_name)
     # print(file_path) # D:\GitHub\Python\HellowExcel3\Book1Done.xlsx
     # base_name = os.path.basename(file_path)
@@ -71,7 +74,7 @@ def save_excel_to_pdf(file_name):
     # Convert Excel file to PDF using win32com
     excel = win32com.client.Dispatch('Excel.Application')
     excel.DisplayAlerts = False  # Wyłączenie monitu o zapisywanie zmian
-    workbook = excel.Workbooks.Open(r'D:\GitHub\Python\HellowExcel3\Book1Book1Done.xlsx')
+    workbook = excel.Workbooks.Open(r'D:\GitHub\Python\HellowExcel3\Book1.xlsx')
 
     # Set properties for printing without margins
     active_sheet = workbook.ActiveSheet
@@ -83,7 +86,7 @@ def save_excel_to_pdf(file_name):
     active_sheet.PageSetup.BottomMargin = 0
 
     # Save to pdf
-    pdf_file_path = r'D:\GitHub\Python\HellowExcel3\Book1Book1Done' + '.pdf'
+    pdf_file_path = r'D:\GitHub\Python\HellowExcel3\Book1' + '.pdf'
     workbook.ExportAsFixedFormat(0, pdf_file_path, 1, 0, 0)
 
     # Close the Excel file
@@ -100,7 +103,8 @@ from openpyxl.utils import get_column_letter
 
 def sub_collumns(file_path):
     # Wczytanie pliku Excel
-    workbook = load_workbook(file_path)
+    # workbook = load_workbook(file_path)
+    workbook = file_path
 
     # Wybór odpowiedniego arkusza
     worksheet = workbook.active
@@ -191,7 +195,7 @@ def sub_collumns(file_path):
                 cell.style = row_style2
 
     # Zapisanie zmian do pliku
-    workbook.save('Book1'+file_path)
+    workbook.save('Book1.xlsx')
 
 
 
