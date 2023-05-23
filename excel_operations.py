@@ -1,12 +1,11 @@
-
 import win32com.client
 import openpyxl as xl
 from openpyxl.styles import Alignment, PatternFill, Side, Border
 import os
 import xlsxwriter
 
-def add_rows(work_book):
 
+def add_rows(work_book):
     sheet = work_book.active
     # Add new rows and set correct values
     rowIndex = 2
@@ -62,12 +61,9 @@ def add_rows(work_book):
         rowIndex += 1  # Move to the newly inserted row
 
 
-
-
-def save_excel_to_pdf(file_name):
-
+def save_excel_to_pdf(wb_file_name, original_file_name):
     # get file_path
-    file_path = os.path.join(os.getcwd(), file_name)
+    file_path = os.path.join(os.getcwd(), wb_file_name)
 
     # Convert Excel file to PDF using win32com
     excel = win32com.client.Dispatch('Excel.Application')
@@ -86,7 +82,7 @@ def save_excel_to_pdf(file_name):
 
     # Save to pdf
     directory_path = os.path.dirname(file_path)
-    pdf_file_path = directory_path + '\Book1' + '.pdf'
+    pdf_file_path = directory_path + '\\' + original_file_name + '.pdf'
     workbook.ExportAsFixedFormat(0, pdf_file_path, 1, 0, 0)
 
     # Close the Excel file
@@ -100,6 +96,7 @@ from openpyxl.styles import NamedStyle, PatternFill, Border, Side, Alignment
 from openpyxl.styles.colors import Color
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
+
 
 def sub_collumns(file_path):
     # Wczytanie pliku Excel
@@ -128,9 +125,10 @@ def sub_collumns(file_path):
 
     # Ustawienie stylu dla pozostałych kolumn
     table_style = openpyxl.worksheet.table.TableStyleInfo(name="TableStyleMedium2", showFirstColumn=False,
-                                                           showLastColumn=False, showRowStripes=True, showColumnStripes=True)
+                                                          showLastColumn=False, showRowStripes=True,
+                                                          showColumnStripes=True)
     table = openpyxl.worksheet.table.Table(ref=f"A2:{get_column_letter(worksheet.max_column)}{worksheet.max_row}",
-                                            displayName="MyTable", tableStyleInfo=table_style)
+                                           displayName="MyTable", tableStyleInfo=table_style)
     worksheet.add_table(table)
 
     # Utworzenie stylu dla nagłówków
@@ -170,7 +168,6 @@ def sub_collumns(file_path):
     # row_width += worksheet.column_dimensions['H'].width
     # print(row_width)
 
-
     # Ustawienie stylu dla wierszy
     row_style1 = NamedStyle(name="row_style1")
     row_style1.fill = PatternFill(start_color=Color(rgb="EBF1DE"), end_color=Color(rgb="EBF1DE"), fill_type="solid")
@@ -195,10 +192,8 @@ def sub_collumns(file_path):
                 cell.style = row_style2
 
     # Zapisanie zmian do pliku
-    workbook.save('Book1.xlsx')
+    workbook.save('Book1__________________Operations.xlsx')
 
 
 def delete_file(file_name):
     os.remove(file_name)
-
-
